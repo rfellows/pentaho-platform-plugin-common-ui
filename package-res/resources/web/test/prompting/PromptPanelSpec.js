@@ -651,6 +651,56 @@ define([ 'dojo/number', 'dojo/i18n', 'common-ui/prompting/PromptPanel',
           expect(panel.dashboard.components[0].listeners.length).toBe(0);
         });
       });
+
+      describe("update", function() {
+        var diffSpy;
+        beforeEach(function() {
+          diffSpy = jasmine.createSpy("diffSpy");
+          diffSpy.toRemove = {};
+          diffSpy.toAdd = {};
+          diffSpy.toChangeData = {};
+        });
+
+        it("should not call every update call", function() {
+          spyOn(panel, "_removeComponentsByDiff");
+          spyOn(panel, "_addComponentsByDiff");
+          spyOn(panel, "_changeComponentsByDiff");
+
+          panel.update(diffSpy);
+
+          expect(panel._removeComponentsByDiff).not.toHaveBeenCalledWith(diffSpy.toRemove);
+          expect(panel._addComponentsByDiff).not.toHaveBeenCalledWith(diffSpy.toAdd);
+          expect(panel._changeComponentsByDiff).not.toHaveBeenCalledWith(diffSpy.toChangeData);
+        });
+
+        it("should call every update call", function() {
+          spyOn(panel, "_removeComponentsByDiff");
+          spyOn(panel, "_addComponentsByDiff");
+          spyOn(panel, "_changeComponentsByDiff");
+
+          diffSpy.toRemove.test = {};
+          diffSpy.toAdd.test = {};
+          diffSpy.toChangeData.test = {};
+
+          panel.update(diffSpy);
+
+          expect(panel._removeComponentsByDiff).toHaveBeenCalledWith(diffSpy.toRemove);
+          expect(panel._addComponentsByDiff).toHaveBeenCalledWith(diffSpy.toAdd);
+          expect(panel._changeComponentsByDiff).toHaveBeenCalledWith(diffSpy.toChangeData);
+        });
+
+        describe("_removeComponentsByDiff", function() {
+
+        });
+
+        describe("_addComponentsByDiff", function() {
+
+        });
+
+        describe("_changeComponentsByDiff", function() {
+
+        });
+      });
     });
   });
 });
