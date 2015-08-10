@@ -721,7 +721,7 @@ define(['amd!cdf/lib/underscore', 'cdf/lib/Base', 'cdf/Logger', 'dojo/number', '
               }
             }
 
-            // need remove component from prompt panel component also
+            // we need to remove components from prompt panel component also
             for (var i in toRemove) {
               var toRemoveComponent = toRemove[i];
               var index = panelComponent.components.indexOf(toRemoveComponent);
