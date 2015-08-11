@@ -462,7 +462,6 @@ define([ 'dojo/number', 'dojo/i18n', 'common-ui/prompting/PromptPanel',
 
         it("should not init dashboard without showing panel and without submitting", function() {
           panel.init(true);
-          expect(panel.components).not.toBeDefined();
           expect(paramDefn.showParameterUI).toHaveBeenCalled();
           expect(paramDefn.mapParameters).toHaveBeenCalled();
           expect(dash.addComponents).not.toHaveBeenCalled();
@@ -473,7 +472,6 @@ define([ 'dojo/number', 'dojo/i18n', 'common-ui/prompting/PromptPanel',
 
         it("should not init dashboard without showing panel and with submitting", function() {
           panel.init();
-          expect(panel.components).not.toBeDefined();
           expect(paramDefn.showParameterUI).toHaveBeenCalled();
           expect(paramDefn.mapParameters).toHaveBeenCalled();
           expect(dash.addComponents).not.toHaveBeenCalled();
@@ -493,7 +491,6 @@ define([ 'dojo/number', 'dojo/i18n', 'common-ui/prompting/PromptPanel',
           panel.init(true);
           expect(panel._multiListBoxTopValuesByParam).not.toBeDefined();
           expect(panel._focusedParam).not.toBeDefined();
-          expect(panel.components.length > 0).toBeTruthy();
           expect(paramDefn.showParameterUI).toHaveBeenCalled();
           expect(paramDefn.mapParameters).not.toHaveBeenCalled();
           expect(dash.addComponents).toHaveBeenCalled();
@@ -704,7 +701,7 @@ define([ 'dojo/number', 'dojo/i18n', 'common-ui/prompting/PromptPanel',
             componentSpy.parameter = paramName;
             componentSpy.type = "TestPanel";
 
-            panel.components = [componentSpy];
+            panel.dashboard.components = [componentSpy];
             panel.guid = guid;
           });
 
@@ -730,7 +727,6 @@ define([ 'dojo/number', 'dojo/i18n', 'common-ui/prompting/PromptPanel',
                 return panelSpy;
               }
             });
-
             spyOn(panel, "removeDashboardComponents");
 
             panel._removeComponentsByDiff(diffSpy.toRemove);

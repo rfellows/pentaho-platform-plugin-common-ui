@@ -222,8 +222,8 @@ define(['amd!cdf/lib/underscore', 'cdf/lib/Base', 'cdf/Logger', 'dojo/number', '
        * @returns {BaseComponent|null} If no component is found, null will be returned
        */
       var _getComponentByParamName = function(parameterName, getPanel) {
-        for (var i in this.components) {
-          var component = this.components[i];
+        for (var i in this.dashboard.components) {
+          var component = this.dashboard.components[i];
           if (component.parameter === parameterName) {
             var isPanel = component.type.search("Panel") > -1;
             if ((getPanel && isPanel) || (!getPanel && !isPanel)) {
@@ -244,15 +244,6 @@ define(['amd!cdf/lib/underscore', 'cdf/lib/Base', 'cdf/Logger', 'dojo/number', '
        */
       var _removeComponents = function(components) {
         this.removeDashboardComponents(components);
-        for ( var j in components) {
-          var component = components[j];
-          for ( var i in this.components) {
-            if (this.components[i].name == component.name) {
-              this.components.splice(i, 1);
-              break;
-            }
-          }
-        }
       };
 
       /**
@@ -265,7 +256,6 @@ define(['amd!cdf/lib/underscore', 'cdf/lib/Base', 'cdf/Logger', 'dojo/number', '
        */
       var _addComponent = function(component) {
         this.dashboard.addComponent(component);
-        this.components.push(component);
         this.dashboard.updateComponent(component);
 
         for (var i in component.components) { // Loop through panel components
@@ -796,7 +786,7 @@ define(['amd!cdf/lib/underscore', 'cdf/lib/Base', 'cdf/Logger', 'dojo/number', '
               var component = _getComponentByParam.call(this, param);
               if (component != null) {
                 // Create new widget to get properly formatted values array
-                var newValuesArray = WidgetBuilder.WidgetBuilder.build({
+                var newValuesArray = this.widgetBuilder.build({
                   param: param,
                   promptPanel: this
                 }, param.attributes["parameter-render-type"]).valuesArray;
@@ -923,13 +913,19 @@ define(['amd!cdf/lib/underscore', 'cdf/lib/Base', 'cdf/Logger', 'dojo/number', '
 
             _mapComponents(layout, updateComponent);
 
-            this.components = components;
-            this.dashboard.addComponents(this.components);
+            this.dashboard.addComponents(components);
             this.dashboard.init();
           } else if (this.diff) { // Perform update when there are differences
             this.update(this.diff);
 
-            var promptPanel = this.dashboard.getComponentByName("prompt" + this.guid);
+            if (topValuesByParam) {
+              delete this._multiListBoxTopValuesByParam;
+            }
+
+            if (focusedParam) {
+              delete this._focusedParam;
+            }
+            var layout = this.dashboard.getComponentByName("prompt" + this.guid);
             _mapComponents(layout, updateComponent);
           } else { // Simple parameter value initialization
             this.paramDefn.mapParameters(function (param) {
