@@ -31,10 +31,10 @@ import org.pentaho.test.platform.engine.core.MicroPlatform;
 import org.pentaho.common.ui.messages.Messages;
 
 @SuppressWarnings( "nls" )
-public class MessagesTest {
+public class MessagesIT {
   MicroPlatform mp;
 
-  public MessagesTest() throws ClassNotFoundException, ObjectFactoryException {
+  public MessagesIT() throws ClassNotFoundException, ObjectFactoryException {
     mp = new MicroPlatform( "" );
   }
 
