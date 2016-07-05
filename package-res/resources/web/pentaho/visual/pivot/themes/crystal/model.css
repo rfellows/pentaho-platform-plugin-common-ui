@@ -1,0 +1,24 @@
+#pivot-container {
+  height: 500px;
+}
+
+.pentaho-visual-pivot {
+  height: 100%;
+  width: 100%;
+}
+
+.pentaho-visual-pivot.component-icon-small {
+  background-image: url("./images/icon-small.png");
+}
+
+.pentaho-visual-pivot.component-icon-medium {
+  background-image: url("./images/icon-medium.png");
+}
+
+.pentaho-visual-pivot.component-icon-large {
+  background-image: url("./images/icon-large.png");
+}
+
+.pentaho-visual-pivot.component-icon-landscape {
+  background-image: url("./images/icon-landscape.png");
+}

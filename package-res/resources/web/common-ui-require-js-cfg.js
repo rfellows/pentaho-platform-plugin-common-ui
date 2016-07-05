@@ -224,12 +224,18 @@
   // sample/calc theme
   mapTheme("pentaho/visual/samples/calc", "themes", ["crystal"]);
 
+  // sample/calc theme
+  mapTheme("pentaho/visual/pivot", "themes", ["crystal"]);
+
   [
     // base visual
     "pentaho/visual/base",
 
     // calc viz
     "pentaho/visual/samples/calc",
+
+    // pivot table viz
+    "pentaho/visual/pivot",
 
     // ccc vizs
     "pentaho/visual/ccc/abstract",

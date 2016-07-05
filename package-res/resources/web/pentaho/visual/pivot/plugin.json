@@ -1,0 +1,8 @@
+{
+  "main": "model",
+  "config": {
+    "pentaho/service": {
+      ".": "pentaho/type/value"
+    }
+  }
+}
